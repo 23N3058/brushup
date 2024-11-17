@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自己紹介</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            box-sizing: border-box;
+            position:center;
+            overflow-x: hidden;
+            color: black;
+        }
+
+        .horror-image-container {
+            position: left;
+            width: 300px;
+            height: 400px;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeIn 3s forwards;
+        }
+
+        .horror-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(70%) contrast(120%) brightness(90%);
+        }
+
+        .book-section {
+            margin-bottom: 40px;
+            animation: fadeIn 2s forwards;
+        }
+
+        .book-header {
+            text-align: left;
+            margin-bottom: 10px;
+        }
+
+        .book-content {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .text-content {
+            margin-left: 20px;
+            max-width: 600px;
+        }
+
+        .book-content-right {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .text-content-right {
+            margin-right: 20px;
+            max-width: 600px;
+            margin-bottom: 150px;
+        }
+
+        .horizontal-images-container {
+            display: flex;
+            justify-content: flex-start; 
+            align-items: flex-start; 
+        }
+
+        .horizontal-images-container img {
+            width: 270px;
+            height: 360px;
+            object-fit: cover; 
+        }
+
+        .center-text-container {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        .lost-item-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .lost-item-card {
+            width: 300px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: transform 0.5s, opacity 0.5s;
+        }
+
+        .lost-item-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .lost-item-card h4 {
+            margin: 15px;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .lost-item-card p {
+            margin: 15px;
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        .lost-item-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .typing-text {
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            color: black;
+            white-space: nowrap;
+            border-right: 2px solid black; 
+            visibility: hidden; 
+            overflow: hidden;
+}
+
+        @keyframes blink {
+            0%, 100% {
+                border-color: transparent;
+            }
+            50% {
+                border-color: black;
+            }
+}
+
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            20% { opacity: 0.2; }
+            40% { opacity: 0.4; }
+            60% { opacity: 0.6; }
+            80% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); filter: hue-rotate(0deg); }
+            5% { transform: translate(5px, 0); filter: hue-rotate(90deg); }
+            10% { transform: translate(-5px, 0); filter: hue-rotate(180deg); }
+            15% { transform: translate(0, -5px); filter: hue-rotate(270deg); }
+            20% { transform: translate(0, 5px); filter: hue-rotate(360deg); }
+            25% { transform: translate(0); filter: hue-rotate(0deg); }
+        }
+
+        .glitch {
+            animation: glitch 4s steps(1) infinite;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .fade-in-up {
+            animation: fadeInUp 1s forwards;
+        }
+
+    @keyframes slideInLeft {
+        0% {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideInRight {
+        0% {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    .slide-in-left {
+        animation: slideInLeft 1.5s ease-out forwards;
+    }
+
+    .slide-in-right {
+        animation: slideInRight 1.5s ease-out forwards;
+    }
+
+    .title-container {
+            display: inline-block;
+        }
+
+        .normal-text {
+            display: inline-block;
+        }
+
+        .scroll-reveal {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-50px);
+            transition: all 0.8s ease-out;
+        }
+
+        .scroll-reveal.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .dropping-text {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(-50px); 
+            animation: dropAnimation 1s ease forwards;
+            animation-delay: 1.0s; 
+            
+}
+
+         @keyframes dropAnimation {
+            0% {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+    }
+}
+
+        /*.theme-text {
+            display: inline-block;
+        }
+
+        .dropping-text {
+            display: inline-block;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-100px);
+        }
+
+        .dropping-text.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            transition: all 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }*/
+
+        .concept-container {
+            margin-top: 20px;
+        }
+
+        .delay-1 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-3 {
+            transition-delay: 0.6s;
+        }
+
+        h1, h2, h3, p {
+            margin: 10px 0;
+        } 
+
+        .concept{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .dokusho{
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+
+    
+    <script>
+        window.onload = function() {
+            const images = document.querySelectorAll('.zane, .wazawai, .tensi');
+            images.forEach(img => {
+
+                const container = document.createElement('div');
+                container.className = 'horror-image-container';
+                
+                img.className += ' horror-image glitch';
+                
+                img.parentNode.insertBefore(container, img);
+                container.appendChild(img);
+
+                setInterval(() => {
+                    if (Math.random() > 0.7) {
+                        img.style.transform = `translate(${Math.random() * 10 - 5}px, ${Math.random() * 10 - 5}px)`;
+                        setTimeout(() => {
+                            img.style.transform = 'translate(0, 0)';
+                        }, 100);
+                    }
+                }, 2000);
+            });
+        };
+
+        window.addEventListener("scroll", () => {
+            const elements = document.querySelectorAll(".typing-text");
+
+            elements.forEach((element) => {
+                const rect = element.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight && rect.bottom >= 0;
+
+                if (isVisible && element.style.visibility !== "visible") {
+                    element.style.visibility = "visible";
+                    startTyping(element);
+                }
+            });
+        });
+
+        function startTyping(element) {
+            const text = element.textContent;
+            element.textContent = "";
+            let index = 0;
+
+            function type() {
+                if (index < text.length) {
+                    element.textContent += text.charAt(index);
+                    index++;
+                    setTimeout(type, 100); 
+        }
+    }
+
+    type();
+}
+
+
+    </script>
+</head>
+<body>
+    <canvas id="main"></canvas>
+    <h1>新田悠介</h1>
+    <h2>自己紹介ページ</h2>
+    <h3>私の最近の趣味</h3>
+    <div class="scroll-reveal concept-container">
+        <div class="dokusho">
+        <p class="dropping-text delay-1">読書</p>
+        <p class="dropping-text delay-2">特にホラー小説が好き</p>
+        <p class="dropping-text delay-3">今まで読んできた本の中で面白かったもの top3 を紹介!</p>
+        </div>
+    </div>
+
+    <div class="book-section">
+        <div class="book-header slide-in-left">
+            <h4>第3位: 残穢</h4>
+        </div>
+        <div class="book-content slide-in-left">
+            <img class="zane" src="IMG_4834.jpg" alt="残穢の画像">
+            <div class="text-content">
+                <h3>あらすじ</h3>
+                <p>転居したばかりの人の居着かないという部屋で、何かが畳を擦る音が聞こえ、背後には気配が。<br/>
+                    なんの変哲もないマンションで起こる怪奇現象を調べるうち、ある因縁が浮かび上がる。かつて<br/>
+                    ここで迎えた最期とは。恨みを伴う死は穢れとなり、感染は拡大するというが…</p>
+            </div>
+        </div>
+    </div>
+    <h5>ワンポイント</h5>
+    <p>自分が住む場所には元々何があったか。考えたこともないですが、長い歴史を経て、今住んでいる家が<br/>
+        建ったことは想像できます。私はこの本を読み終わってから、この本を部屋に置いておくことすら嫌に<br/>
+        なりました。日常生活に支障をきたすようなホラー小説はこれが初めてでした。</p>
+    
+    <div class="book-section">
+        <div class="book-header slide-in-right">
+            <h4>第2位: 禍</h4>
+        </div>
+        <div class="book-content-right slide-in-right">
+            <div class="text-content-right">
+                <h3>あらすじ</h3>
+                <p>「おれはここにいると言ってるんだ。いないことになんかできねえよ」。恋人の百合子が失踪した。<br/>
+                    彼女が住むアパートを訪れた私は、隣人を名乗る男と遭遇する。そこで語られる、奇妙な話の数々。<br/>
+                    果たして、男が目撃した秘技耳もぐりとは、一体（「耳もぐり」）。他、読者の臓腑をかき乱し、骨<br/>
+                    の髄まで侵食する、人間の体をテーマにした、生々しい7つの短編集。</p>
+            </div>
+            <img class="wazawai" src="IMG_4824.jpg" alt="禍の画像">
+        </div>
+    </div>
+    <h5>ワンポイント</h5>
+    <p>人間の体の細かい部位にフォーカスした短編集だからこそ、生々しい恐怖感じることができます。どれも<br/>
+        しっかりとした恐怖があるのですが、その中でも「喪色記」では異様な怖さ恐怖を感じられました。ホラー<br/>
+        でありながらファンタジーの要素がかなり強め。私はこの作品の世界観に心を打たれました。</p>
+    
+    <div class="book-section">
+        <div class="book-header slide-in-left">
+            <h4>第1位: 天使の囀り</h4>
+        </div>
+        <div class="book-content slide-in-left">
+            <img class="tensi" src="messageImage_1731748691303.jpg" alt="天使の囀りの画像">
+            <div class="text-content">
+                <h3>あらすじ</h3>
+                <p>北島早苗は、ホスピスで終末期医療に携わる精神科医。恋人で作家の高梨は、病的な死恐怖症だった<br/>
+                    が、新聞社主催のアマゾン調査隊に参加してからは、人格が異様な変容を見せ、あれほど恐れていた<br/>
+                    死に魅せられたように自殺してしまう。さらに、調査隊の他のメンバーも、次々と異様な方法で自殺<br/>
+                    を遂げていることがわかる。アマゾンでは猿を食べたという調査隊。彼らの身には何が起きたのか。</p>
+            </div>
+        </div>
+    </div>
+    <h5>ワンポイント</h5>
+    <p>私が本屋でふと表紙に目を奪われて一番最初にかったホラー小説であり、これれがなければ読書にはハマって<br/>
+       いなかったでしょう。サスペンス要素もあり、謎が解けるほど恐怖も大きくなるというのが読んでいて最高<br/>
+       でした。読むのも嫌なほどグロくて嫌だという気持ちと物語序盤からの謎を明かしたいという気持ちの間で<br/>
+       揺れ動く。今までにない読書体験をあなたにも味わって欲しいです</p>
+    
+
+    <div class="horizontal-images-container">
+        <img class="sensei" src="IMG_5199.jpeg" alt="Sensei Image">
+        <img class="saturiku" src="IMG_4819.jpeg" alt="Saturiku Image">
+        <img class="himawari" src="S__138518532.jpg" alt="Himawari Image">
+    </div>
+
+    <div class="center-text-container">
+        <h2>最近はミステリー小説にハマりつつある</h2>
+        <p>何かおすすめがあれば教えてください！</p>
+    </div>
+
+    <h2 class="typing-text">「禍」によって生々しいものが好きになった。</h2>
+    <h2 class="typing-text">「100Finds」のテーマも生々しいものにしたい。</h2>
+    <div class="scroll-reveal"></div>
+        <h1>
+            <span class="theme-text">テーマを</span>
+            <span class="dropping-text">”落とし物”</span>
+            <span class="theme-text">に！</span>
+        </h1>
+    </div>
+
+
+    <div class="scroll-reveal">
+        <h2>タイトル</h2>
+        <h1 class="dropping-text delay-1">落とし人</h1>
+    </div>
+
+
+    <div class="scroll-reveal concept-container">
+        <h3>コンセプト</h3>
+        <div class="concept">
+        <p class="dropping-text delay-2">
+            落とし物とは落とした人を写す鏡であり、<br>
+            他者への想像を膨らませるドアでもある
+        </p>
+        <p class="dropping-text delay-3">
+            普段あまり気にしていない落とし物。しかし一歩近づいて見てみると、<br>
+            落とし物をすかして、他人の生活を覗くことができます。そこで今回は<br>
+            集めた落とし物の数々を見つつ、読者と一緒に「落とし人」に想像を<br>
+            膨らませるものを作りました。
+        </p>
+        </div>
+    </div> 
+    <h4>概要</h4>
+    <div class="slide-in-left">
+    <h3>街中で発見！これを落とした人はどんな人？</h3>
+    <p>落とし物を無意識と故意に分けて、それぞれに対して落とし人の姿を想像しました。</p>
+    <h3>職業別、落とし物に出る特徴。</h3>
+    <p>業種によっても落とし物(落とし人)に特徴が出ることがわかりました。</p>
+    <h3>どんな思いを込めて、落とし物をしたの？</h3>
+    <p>私たちが想像する落とし物とは一般的になんの意図も込められていない。<br>
+       しかし、世の中には意図が込められた落とし物があることがわかりました。</p>
+    </div>
+    <h3>本の中で扱った落とし物のうちいくつかを紹介！</h4>
+
+    <div class="lost-item-container">
+
+        <div class="lost-item-card fade-in-up">
+            <h3>街中で発見！これを落とした人は<br>どんな人？</h3>
+            <img src="LINE_ALBUM_2024.10.27_241027_33.jpg" alt="ハンカチの画像">
+            <h4>ハンカチ</h4>
+            <p>ショッピングモールのおもちゃコーナーにあるガチャポンの上にあったハンカチ。<br>
+                周囲の状況からも子供のポケットから落ちたものだと思われます。たくさん並ぶ<br>
+                おもちゃやガチャポンを見てはしゃいでいた子供の姿を想像すると少し心が苦しく<br>
+                なります。このハンカチを大事にしていたのならなおさらです。見つけやすいように<br>
+                ガチャポンの上に置いておいた人の温かさも感じる。落とし人の周りの人にも想いを<br>
+                馳せるのも楽しいかもしれませんね。</p>
+        </div>
+        <div class="lost-item-card fade-in-up">
+            <h3>職業別、<br>落とし物に出る特徴。</h3>
+            <img src="LINE_ALBUM_2024.10.27_241027_33.jpg" alt="単語帳の画像">
+            <h4>懐かしい</h4>
+            <p>英語において単語の勉強は基礎中の基礎。しかしこれができないと始まらないとも<br>
+                言える。単語帳は単語を覚えるにあたって効果的な手段といえ、書いて、みて、<br>
+                口に出して覚えられる。一枚一枚頑張って書いた学生の姿が浮かぶ。努力の塊が<br>
+                なくなるのは不憫なので、早く落とし人が見つかって欲しい。</p>
+        </div>
+        <div class="lost-item-card fade-in-up">
+            <h3>どんな思いを込めて、<br>落とし物をしたの？</h3>
+            <img src="LINE_ALBUM_2024.10.27_241027_44.jpg" alt="金魚の画像">
+            <h4>猫の贈り物</h4>
+            <p>ある日を境に、お母さんは家で仕事をしている最中、昼間に猫の鳴き声を聞く様に<br>
+                なったという。昔猫を飼っていた猫付きなお母さんは鳴き声がするたびにそれに<br>
+                反応するように、猫のニャーと泣き返していたという。そんな日々が続いていたある日<br>
+                の朝、お母さんはゴミ出しをしようと玄関を出ると、死んだ金魚が家の前に落ちている<br>
+                ことに気づく。近くの家には金魚をたくさん飼っている家がある。この様な出来事は<br>
+                数回にわたって繰り返されたが、お母さんが猫に返事をするのをやめるとぴたりと止んだ。<br>
+                これはあの猫なりの友情の証だったのでしょうか。</p>
+        </div>
+    </div>
+
+    <script>
+        const items = document.querySelectorAll('.lost-item-card');
+
+        const scrollAnimation = () => {
+            items.forEach((item) => {
+                const rect = item.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) {
+                    item.classList.add('fade-in-up');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', scrollAnimation);
+        scrollAnimation(); 
+
+        function checkScroll() {
+            const elements = document.querySelectorAll('.scroll-reveal');
+            
+            elements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const isVisible = rect.top < window.innerHeight - 100;
+                
+                if (isVisible) {
+                    element.classList.add('active');
+                    element.querySelectorAll('.dropping-text').forEach(text => {
+                    text.classList.add('active');
+                    });
+                }
+            });
+        }
+
+        window.addEventListener('scroll', checkScroll);
+
+        window.addEventListener('load', checkScroll);
+
+        setTimeout(checkScroll, 100);
+    </script>
+
+    </script>
+</body>
+</html>
